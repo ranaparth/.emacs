@@ -9,39 +9,43 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
-;;Setting helm
-(require 'helm-config)
-(helm-mode 1)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-;;Define forward-persistent-action
-(require 'helm)
-(defun fu/helm-find-files-navigate-forward (orig-fun &rest args)
-  (if (file-directory-p (helm-get-selection))
-      (apply orig-fun args)
-    (helm-maybe-exit-minibuffer)))
-(advice-add 'helm-execute-persistent-action :around #'fu/helm-find-files-navigate-forward)
-(define-key helm-find-files-map (kbd "<return>") 'helm-execute-persistent-action)
 
-;;Backspace
-(defun fu/helm-find-files-navigate-back (orig-fun &rest args)
-  (if (= (length helm-pattern) (length (helm-find-files-initial-input)))
-      (helm-find-files-up-one-level 1)
-    (apply orig-fun args)))
-(advice-add 'helm-ff-delete-char-backward :around #'fu/helm-find-files-navigate-back)
+;;exchanging meta key and super key
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
+
+;;Setting ivy
+(ivy-mode 1)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;;(global-set-key "\M-" 'hippie-expand)
+
+;;Multiple Cursor
+(require 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;;projectile
-;;Expand Region
-
 (require 'projectile)
+(projectile-mode 1)
 (setq projectile-enable-caching t)
-(global-set-key (kbd "M-p") 'helm-projectile)
+(setq projectile-completion-system 'ivy)
+(global-set-key (kbd "M-p") 'projectile-find-file)
+
+;;Company Mode
+(add-hook 'after-init-hook 'global-company-mode)
+
+;;Expand Region
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-(set-face-attribute 'default nil :height 142)
-;;(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+;;powerline
+(require 'powerline)
+(powerline-default-theme)
+
+;;customizing font-size
+(set-face-attribute 'default nil :height 144)
 
 ;;swiper configuration
 (use-package swiper
@@ -50,11 +54,23 @@
 ;;smartparens
 (require 'smartparens-config)
 
+;;Storing backup files in temporary directory
+;;Store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+(put 'narrow-to-region 'disabled nil)
+(setq whitespace-line -1)
+(setq whitespace-style '(face tabs empty trailing lines-tail))
+(global-whitespace-mode)
 (setq ns-use-srgb-colorspace 'nil)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (setq vc-handled-backends nil)
+(setq-default indent-tabs-mode nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 (remove-hook 'find-file-hook 'vc-refresh-state)
 (remove-hook 'after-save-hook 'vc-find-file-hook)
@@ -108,7 +124,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (helm-projectile helm smartparens expand-region multiple-cursors elpy ido-ubiquitous flex-isearch flycheck web-mode php-mode color-theme-sanityinc-solarized powerline swiper use-package smex)))
+    (counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode color-theme-sanityinc-solarized powerline swiper use-package)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(powerline-height nil)
