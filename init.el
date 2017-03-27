@@ -54,6 +54,11 @@
 ;;smartparens
 (require 'smartparens-config)
 
+;;golden-ratio
+(require 'golden-ratio)
+(golden-ratio-mode 1)
+
+(setq js-indent-level 2)
 ;;Storing backup files in temporary directory
 ;;Store all backup and autosave files in the tmp dir
 (setq backup-directory-alist
@@ -79,12 +84,17 @@
 ;;(add-to-list 'default-frame-alist '(background-mode . dark))
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/themes")
 ;; (set-frame-parameter nil 'background-mode 'dark)
+;; (require 'doom-themes)
+;; (load-theme 'doom-one t)
 (load-theme 'sanityinc-solarized-dark t)
+;;(load-theme 'solarized-dark t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(compilation-message-face (quote default))
@@ -94,7 +104,7 @@
  '(cua-read-only-cursor-color "#859900")
  '(custom-safe-themes
    (quote
-    ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "cdf96318f1671344564ba74ef75cc2a3f4692b2bee77de9ce9ff5f165de60b1f" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
    (--map
@@ -124,7 +134,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode color-theme-sanityinc-solarized powerline swiper use-package)))
+    (golden-ratio solarized-theme doom-themes counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode color-theme-sanityinc-solarized powerline swiper use-package)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(powerline-height nil)
