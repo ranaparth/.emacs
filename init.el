@@ -9,6 +9,25 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
+;; Ask "y" or "n" instead of "yes" or "no". Yes, laziness is great.
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Highlight corresponding parentheses when cursor is on one
+(show-paren-mode t)
+
+;; Highlight tabulations
+(setq-default highlight-tabs t)
+
+;; Show trailing white spaces
+(setq-default show-trailing-whitespace t)
+
+;; Set locale to UTF8
+(set-language-environment 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
 
 ;;exchanging meta key and super key
 (setq mac-command-modifier 'meta)
@@ -19,6 +38,9 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 ;;(global-set-key "\M-" 'hippie-expand)
+
+;;Kill this buffer
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 ;;Multiple Cursor
 (require 'multiple-cursors)
@@ -33,8 +55,26 @@
 (setq projectile-completion-system 'ivy)
 (global-set-key (kbd "M-p") 'projectile-find-file)
 
+;;Expand region bug
+(setq shift-select-mode nil)
+
+(exec-path-from-shell-initialize)
+
 ;;Company Mode
-(add-hook 'after-init-hook 'global-company-mode)
+;;(add-hook 'after-init-hook 'global-company-mode)
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-line
+        try-expand-list
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 
 ;;Expand Region
 (require 'expand-region)
@@ -51,6 +91,9 @@
 (use-package swiper
   :bind ("C-s" . swiper))
 
+;;gtags
+;; (ggtags-mode 1)
+
 ;;smartparens
 (require 'smartparens-config)
 
@@ -61,10 +104,11 @@
 (setq js-indent-level 2)
 ;;Storing backup files in temporary directory
 ;;Store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+(setq backup-directory-alist '(("." . "~/.emacs-backup")))
+;;(setq backup-directory-alist
+;;      `((".*" . ,temporary-file-directory)))
+;;(setq auto-save-file-name-transforms
+;;      `((".*" ,temporary-file-directory t)))
 
 (put 'narrow-to-region 'disabled nil)
 (setq whitespace-line -1)
@@ -134,7 +178,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (golden-ratio solarized-theme doom-themes counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode color-theme-sanityinc-solarized powerline swiper use-package)))
+    (visual-regexp zenburn-theme anzu phpcbf exec-path-from-shell counsel-gtags ggtags color-theme-sanityinc-solarized golden-ratio counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode powerline swiper use-package)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(powerline-height nil)
