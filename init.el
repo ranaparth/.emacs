@@ -21,6 +21,9 @@
 ;; Show trailing white spaces
 (setq-default show-trailing-whitespace t)
 
+;; Enable org-mode
+(require 'org)
+
 ;; Set locale to UTF8
 (set-language-environment 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -104,11 +107,11 @@
 (setq js-indent-level 2)
 ;;Storing backup files in temporary directory
 ;;Store all backup and autosave files in the tmp dir
-(setq backup-directory-alist '(("." . "~/.emacs-backup")))
-;;(setq backup-directory-alist
-;;      `((".*" . ,temporary-file-directory)))
-;;(setq auto-save-file-name-transforms
-;;      `((".*" ,temporary-file-directory t)))
+;; (setq backup-directory-alist '(("." . "~/.emacs-backup")))
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 (put 'narrow-to-region 'disabled nil)
 (setq whitespace-line -1)
@@ -178,7 +181,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (visual-regexp zenburn-theme anzu phpcbf exec-path-from-shell counsel-gtags ggtags color-theme-sanityinc-solarized golden-ratio counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode powerline swiper use-package)))
+    (org-bullets org visual-regexp zenburn-theme anzu phpcbf exec-path-from-shell counsel-gtags ggtags color-theme-sanityinc-solarized golden-ratio counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode powerline swiper use-package)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(powerline-height nil)
