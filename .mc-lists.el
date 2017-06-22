@@ -3,10 +3,12 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        backward-sexp
         c-electric-colon
         c-electric-delete-forward
         c-electric-semi&comma
         c-electric-slash
+        forward-sexp
         ))
 
 (setq mc/cmds-to-run-once
