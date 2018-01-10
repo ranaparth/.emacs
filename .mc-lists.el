@@ -6,9 +6,11 @@
         backward-sexp
         c-electric-colon
         c-electric-delete-forward
+        c-electric-paren
         c-electric-semi&comma
         c-electric-slash
         forward-sexp
+        ispell-word
         ))
 
 (setq mc/cmds-to-run-once
