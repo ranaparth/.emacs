@@ -27,17 +27,6 @@
 ;; Enable org-mode
 (require 'org)
 
-;;Dumb Jump Mode
-(use-package dumb-jump
-  :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-g j" . dumb-jump-go)
-         ("M-g q" . dumb-jump-quick-look)
-         ("M-g i" . dumb-jump-go-prompt)
-         ("M-g x" . dumb-jump-go-prefer-external)
-         ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy) ;; (setq dumb-jump-selector 'helm)
-  :ensure)
-
 ;; Set locale to UTF8
 (set-language-environment 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -58,6 +47,17 @@
 ;;Kill this buffer
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
+;;Dumb Jump Mode
+(use-package dumb-jump
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g q" . dumb-jump-quick-look)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config (setq dumb-jump-selector 'ivy)
+  :ensure)
+
 ;;Multiple Cursor
 (require 'multiple-cursors)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -71,12 +71,22 @@
 (setq projectile-completion-system 'ivy)
 (global-set-key (kbd "M-p") 'projectile-find-file)
 
+;; Browse Kill ring
+(global-set-key (kbd "C-x M-k") 'browse-kill-ring)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+
 ;; Neotree
 (require 'neotree)
 (global-set-key (kbd "C-x t") 'neotree-toggle)
 (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 ;; All the icons
 (require 'all-the-icons)
+
+;; Beacon
+(beacon-mode 1)
+
+;; Anzu
+(anzu-mode +1)
 
 ;;Expand region bug
 (setq shift-select-mode nil)
@@ -112,6 +122,15 @@
 (spaceline-all-the-icons-theme)
 (spaceline-all-the-icons--setup-neotree)
 
+;; Smooth scroll
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
+(setq smooth-scroll/vscroll-step-size 8)
+
+;; Paradox
+(require 'paradox)
+(paradox-enable)
+
 ;;customizing font-size
 (set-face-attribute 'default nil :height 144)
 
@@ -131,7 +150,8 @@
 (setq golden-ratio-adjust-factor .8
       golden-ratio-wide-adjust-factor .8)
 
-(setq js-indent-level 2)
+(setq js-indent-level 4)
+
 ;; Storing backup files in temporary directory
 ;; Store all backup and autosave files in the tmp dir
 ;; (setq backup-directory-alist '(("." . "~/.emacs-backup")))
@@ -211,7 +231,7 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (go-mode spaceline-all-the-icons spaceline all-the-icons neotree solarized-theme color-theme-solarized dumb-jump org-bullets org visual-regexp zenburn-theme anzu phpcbf exec-path-from-shell counsel-gtags ggtags golden-ratio counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode powerline swiper use-package)))
+    (org-pomodoro markdown-mode async paradox smooth-scroll projectile browse-kill-ring flymake-go beacon go-mode spaceline-all-the-icons spaceline all-the-icons neotree solarized-theme color-theme-solarized dumb-jump org-bullets org visual-regexp anzu phpcbf exec-path-from-shell counsel-gtags ggtags golden-ratio counsel ac-cake smartparens expand-region multiple-cursors elpy ido-ubiquitous flycheck web-mode php-mode powerline swiper use-package)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
@@ -237,6 +257,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#042028" :foreground "#708183" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 125 :width normal :foundry "nil" :family "DejaVu Sans Mono for Powerline")))))
+
+(set-face-attribute 'mode-line nil :box nil :underline nil)
+(set-face-attribute 'mode-line-inactive nil :box nil :underline nil)
 
 (provide 'init)
 ;;; .emacs ends here

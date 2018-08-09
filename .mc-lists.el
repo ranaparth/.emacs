@@ -10,6 +10,7 @@
         c-electric-semi&comma
         c-electric-slash
         forward-sexp
+        indent-for-tab-command
         ispell-word
         ))
 
